@@ -12,9 +12,7 @@ logger.info(otp);
 
 exports.signup = async(req,res) => {
     try{
-        const { error } = registrationValidate(req.body);
-        console.log('error------>',error);
-        
+        const { error } = registrationValidate(req.body);        
         if(error){
             var err1 = error.details[0].message;
             return res.status(400).send(err1);
@@ -24,7 +22,6 @@ exports.signup = async(req,res) => {
         }
         else{
             const encryptedPassword = await bcrypt.hash(req.body.password, saltRounds);
-            console.log(req.body);
             const firstname = req.body.firstname;
             const lastname = req.body.lastname;
             const gender = req.body.gender;
@@ -35,7 +32,6 @@ exports.signup = async(req,res) => {
             const password = encryptedPassword;
             const image = req.file.filename;
 
-            // console.log('image--->',image);
             const sql = `INSERT INTO registration(firstname,lastname,gender,hobby,city,mobile,email,password,image) VALUES("${firstname}","${lastname}","${gender}","${hobby}","${city}","${mobile}","${email}","${password}","${image}")`; 
             con.query(sql,(error,result) => {
                 if (error) {
@@ -138,9 +134,7 @@ exports.updatePassword = async (req, res) => {
             return res.status(400).send(error.details[0].message);
         } else {
             const password = req.body.password;
-            // console.log(Password);
             const salt = await bcrypt.genSalt(10);
-            // const encryptedPassword = await bcrypt.hash(req.body.password, saltRounds);
             const bcryptpassword = await bcrypt.hash(password, salt);
             console.log(bcryptpassword);
             con.query('UPDATE `registration` SET password = ?', [bcryptpassword], (err, response) => {
@@ -228,6 +222,15 @@ exports.verifyOtp = async (req, res, next) => {
     }
 }
 
+exports.logout = async (req, res) => {
+    try {
+        res.clearCookie("jwt");
+        res.send("logout successfully");
+    }
+    catch (err) {
+        logger.error("err", err)
+    }
+};
 
 
 

@@ -6,7 +6,6 @@ exports.addContact = async(req,res) => {
     console.log('req.body----',req.body);
     try{
         const { error } = contactValidation(req.body);
-        // console.log('error------>',error);
         if (error) {
             if (error.details[0].context.key == 'contactName') {
                 var err1 = error.details[0].message;
@@ -115,7 +114,6 @@ exports.multipleDeleteContact = async(req,res) => {
     console.log('req.body--------->',req.body);
     try {
         const {error} = idValidate(req.query);
-        // console.log('error-------------',error);
         if(error){
             return res.status(400).send(error.details[0].message);
         }else {

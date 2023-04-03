@@ -51,9 +51,6 @@ function updateValidation(req) {
             "string.empty": `projectTitle  can not an empty field`,
             "any.required": `projectTitle  is a required field`,
         }),
-        // date: Joi.date().required().messages({
-        //     "any.required": `date is a required field`,
-        // }),
         projectDescription : Joi.string().empty().messages({
             "string.base": `projectDescription should be a type of 'string'`,
             "string.empty": `projectDescription can not an empty field`,
@@ -79,9 +76,9 @@ function idValidate(req) {
           }),
     })
     const options = {
-        abortEarly: false, // include all errors
-        allowUnknown: true, // ignore unknown props
-        stripUnknown: true // remove unknown props
+        abortEarly: false, 
+        allowUnknown: true, 
+        stripUnknown: true 
     };
     return schema.validate(req, options);
 }

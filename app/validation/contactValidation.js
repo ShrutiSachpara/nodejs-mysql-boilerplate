@@ -84,9 +84,9 @@ function idValidate(req) {
           }),
     })
     const options = {
-        abortEarly: false, // include all errors
-        allowUnknown: true, // ignore unknown props
-        stripUnknown: true // remove unknown props
+        abortEarly: false,
+        allowUnknown: true,
+        stripUnknown: true
     };
     return schema.validate(req, options);
 }

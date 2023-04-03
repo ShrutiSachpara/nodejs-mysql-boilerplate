@@ -5,7 +5,6 @@ const {testimonialValidation,updateValidation,idValidate} = require('../validati
 exports.addTestimonial = async(req,res) => {
     try{
         const { error } = testimonialValidation(req.body);
-        // console.log('error------>',error);
         if (error) {
             if (error.details[0].context.key == 'testimonialName') {
                 var err1 = error.details[0].message;
@@ -26,7 +25,6 @@ exports.addTestimonial = async(req,res) => {
         }
         const {testimonialName, designation, testimonialDescription} = req.body;
         const image = req.files.map((image) => image.filename);
-        // console.log('image------------>',image);
        const sql = `INSERT INTO testimonial(testimonialName,designation,testimonialDescription,image) VALUES("${testimonialName}","${designation}","${testimonialDescription}","${image}")`; 
         con.query(sql,(error,result) => {
             if (error) {
@@ -105,10 +103,8 @@ exports.deleteTestimonial = async(req,res) => {
 }
 
 exports.multipleDeleteTestimonial = async(req,res) => {
-    console.log('req.body--------->',req.body);
     try {
         const {error} = idValidate(req.query);
-        // console.log('error-------------',error);
         if(error){
             return res.status(400).send(error.details[0].message);
         }else {

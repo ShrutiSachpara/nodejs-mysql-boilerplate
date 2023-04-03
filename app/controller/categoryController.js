@@ -4,7 +4,6 @@ const {categoryValidation, categoryUpdateValidation, idValidate} = require('../v
 exports.addCategory = async(req,res) => {
     try{
         const { error } = categoryValidation(req.body);
-        // console.log('error------>',error);
         if (error) {
             if (error.details[0].context.key == 'categoryName') {
                 var err1 = error.details[0].message;
@@ -88,15 +87,12 @@ exports.deleteCategory = async(req,res) => {
 }
 
 exports.multipleDeleteCategory = async(req,res) => {
-    console.log('req.body--------->',req.body);
     try {
         const {error} = idValidate(req.query);
-        // console.log('error-------------',error);
         if(error){
             return res.status(400).send(error.details[0].message);
         }else {
             const id = req.query.id;
-            console.log(id);
             con.query("DELETE FROM category WHERE id IN ('" + id.join("','") + "') ", (err, response) => {
                 if (response) {
                     res.send("Selected contact Deleted...");

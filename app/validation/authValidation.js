@@ -134,7 +134,7 @@ function verifyemailValidate(req) {
         })
     })
     const options = {
-        abortEarly: false, // include all errors
+        abortEarly: false
     };
     return schema.validate(req, options);
 }
@@ -178,49 +178,5 @@ function verifyEmail(req){
     })
     return schema.validate(req, { abortEarly: false });
 }
-
-// function resetValidate(req) {
-//     const schema = Joi.object({
-//         password : Joi.string().min(4).max(16).messages({
-//             "string.base": `password should be a type of 'text'`,
-//             "string.min": "password should be of minimum 6 characters",
-//             "string.max": "password should be of maximum 16 characters",
-//              "any.required": `password is a required field`,
-//         }),
-//         Password: Joi.string().required().min(6).max(16).messages({
-//             "string.base": `new password should be a type of 'text'`,
-//             "string.empty": `new password cannot be an empty field`,
-//             "string.min": "new password should be of minimum 6 characters",
-//             "string.max": "new password should be of maximum 16 characters",
-//             "any.required": `new password is a required field`,
-//         }),
-//         cpassword: Joi.string().required().valid(Joi.ref('Password')).messages({
-//             "string.base": `confirm password should be a type of 'text'`,
-//             "any.only": "confirm password doesn't match new password",
-//             "any.required": `confirm password is a required field`,
-//         })
-//     })
-//     const options = {
-//         abortEarly: false, // include all errors
-//     };
-//     return schema.validate(req, options);
-// }
-
-// function pswdValidate(req) {
-//     const schema = Joi.object({
-//         email: Joi.string().empty().required().email().messages({
-//             "string.base": `email should be a type of 'string'`,
-//             "string.empty": `email can not an empty field`,
-//             "string.email": `email format not valid`,
-//             "any.required": `email is a required field`,
-//         })
-//     })
-//     const options = {
-//         abortEarly: false,
-//     };
-//     return schema.validate(req, options);
-// }
-
-
 
 module.exports = { registrationValidate , loginValidate, updateProfileValidate, verifyemailValidate,newPswdValidate, verifyEmail};

@@ -74,12 +74,10 @@ exports.viewPortfolio = async(req,res) => {
 exports.updatePortfolio = async (req, res) => {
     try {
         const id = req.params.id;
-        //console.log('id------>',id);
         const category_name = req.body.categoryName;
         con.query(`SELECT * FROM category WHERE categoryName = ?`, [category_name], (err, result) => {
             if (result) {
                 const categoryName = result[0].categoryName;
-                //console.log('categoryName------->',categoryName);
                 const { projectName, projectTitle, date, projectDescription } = req.body;
 
                 con.query(`UPDATE portfolio SET categoryName='${categoryName}',projectName = '${projectName}', projectTitle = '${projectTitle}',date = '${date}', projectDescription = '${projectDescription}' WHERE id = ?` , [id], async(err,result) => {
@@ -90,20 +88,6 @@ exports.updatePortfolio = async (req, res) => {
                         console.log(err);
                     }
                 })
-                // con.query('UPDATE portfolio SET ?', {
-                //     categoryName: categoryName,
-                //     projectName: projectName,
-                //     projectTitle: projectTitle,
-                //     date: date,
-                //     projectDescription: projectDescription
-                // }, (err, addResult) => {
-                //     if (addResult) {
-                //         res.send('Portfolio Will Be update')
-                //     }
-                //     else{
-                //         console.log('err-------------',err);
-                //     }
-                // })
             }
             else{
                 console.log(err);
@@ -135,7 +119,6 @@ exports.multipleDeletePortfolio = async(req,res) => {
     console.log('req.body--------->',req.body);
     try {
         const {error} = idValidate(req.query);
-        // console.log('error-------------',error);
         if(error){
             return res.status(400).send(error.details[0].message);
         }else {
